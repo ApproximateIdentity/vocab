@@ -19,7 +19,7 @@ def format_row(row, first_lang='english'):
         if first_lang == 'english':
             return f"{row[first_lang]} ({row['type']});{row[second_lang]}"
         else:
-            return f"{row[second_lang]};{row[second_lang]} ({row['type']})"
+            return f"{row[first_lang]};{row[second_lang]} ({row['type']})"
     else:
         raise NotImplementedError(f"row type: {row['type']}")
 
