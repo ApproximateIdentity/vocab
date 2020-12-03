@@ -7,7 +7,7 @@ def format_row(row, first_lang='english'):
     row = {key: val.strip() for key, val in row.items()}
     # Sanity checks
     assert first_lang in ['english', 'czech']
-    assert row['type'] in ['adj', 'adv', 'noun', 'verb']
+    assert row['type'] in ['adj', 'adv', 'noun', 'verb', 'phrase']
     # Formatting
     second_lang = 'czech' if first_lang == 'english' else 'english'
     if row['type'] == 'adj':
@@ -20,6 +20,10 @@ def format_row(row, first_lang='english'):
             return f"{row[first_lang]} ({row['type']});{row[second_lang]}"
         else:
             return f"{row[first_lang]};{row[second_lang]} ({row['type']})"
+    elif row['type'] == 'verb':
+        return f"{row[first_lang]} (v);{row[second_lang]}"
+    elif row['type'] == 'phrase':
+        return f"{row[first_lang]};{row[second_lang]}"
     else:
         raise NotImplementedError(f"row type: {row['type']}")
 
