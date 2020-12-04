@@ -14,7 +14,11 @@ def format_row(row, first_lang='english'):
         return f"{row[first_lang]};{row[second_lang]}"       
     elif row['type'] == 'noun':
         assert row['gender'] in ['m', 'f', 'n']
-        return f"{row[first_lang]};{row[second_lang]} ({row['gender']})"
+        pronoun = {'m': 'ten', 'f': 'ta', 'n': 'to'}[row['gender']]
+        if first_lang == 'english':
+            return f"{row[first_lang]};{pronoun} {row[second_lang]}"
+        else:
+            return f"{pronoun} {row[first_lang]};{row[second_lang]}"
     elif row['type'] == 'adv':
         if first_lang == 'english':
             return f"{row[first_lang]} ({row['type']});{row[second_lang]}"
