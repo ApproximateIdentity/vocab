@@ -20,11 +20,14 @@ def formatter(dict_reader):
                     yield f"{row[first_lang]};{pronoun} {row[second_lang]}"
                 else:
                     yield f"{pronoun} {row[first_lang]};{row[second_lang]}"
-            elif row['type'] in ['adv', 'prep', 'conj']:
+            elif row['type'] in ['adv', 'conj']:
                 if first_lang == 'english':
                     yield f"{row[first_lang]} ({row['type']});{row[second_lang]}"
                 else:
                     yield f"{row[first_lang]};{row[second_lang]} ({row['type']})"
+            elif row['type'] == 'prep':
+                # XXX - Temporarilly removing prepositions to make them better...
+                pass
             elif row['type'] == 'verb':
                 yield f"{row[first_lang]} (v);{row[second_lang]}"
             elif row['type'] == 'phrase':
