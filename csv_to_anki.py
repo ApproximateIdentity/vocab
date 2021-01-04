@@ -7,7 +7,7 @@ def formatter(dict_reader):
         # Initial data cleaning
         row = {key: val.strip() for key, val in row.items()}
         # Sanity checks
-        assert row['type'] in ['adj', 'adv', 'noun', 'verb', 'phrase', 'prep', 'conj']
+        assert row['type'] in ['adj', 'adv', 'noun', 'verb', 'phrase', 'prep', 'conj', 'pron', 'comp']
         # Formatting
         for first_lang in ['english', 'czech']:
             second_lang = 'czech' if first_lang == 'english' else 'english'
@@ -20,7 +20,7 @@ def formatter(dict_reader):
                     yield f"{row[first_lang]};{pronoun} {row[second_lang]}"
                 else:
                     yield f"{pronoun} {row[first_lang]};{row[second_lang]}"
-            elif row['type'] in ['adv', 'conj']:
+            elif row['type'] in ['adv', 'conj', 'pron']:
                 if first_lang == 'english':
                     yield f"{row[first_lang]} ({row['type']});{row[second_lang]}"
                 else:
@@ -31,6 +31,8 @@ def formatter(dict_reader):
             elif row['type'] == 'verb':
                 yield f"{row[first_lang]} (v);{row[second_lang]}"
             elif row['type'] == 'phrase':
+                yield f"{row[first_lang]};{row[second_lang]}"
+            elif row['type'] == 'comp':
                 yield f"{row[first_lang]};{row[second_lang]}"
             else:
                 raise NotImplementedError(f"row type: {row['type']}")
