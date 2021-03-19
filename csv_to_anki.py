@@ -29,7 +29,10 @@ def formatter(dict_reader):
                 # XXX - Temporarilly removing prepositions to make them better...
                 pass
             elif row['type'] == 'verb':
-                yield f"{row[first_lang]} (v);{row[second_lang]}"
+                perfective = row["perfective"]
+                if perfective:
+                    perfective = "." + perfective
+                yield f"{row[first_lang]} (v{perfective});{row[second_lang]}"
             elif row['type'] in ['phrase', 'comp', 'interj']:
                 yield f"{row[first_lang]};{row[second_lang]}"
             else:
